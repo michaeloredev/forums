@@ -18,12 +18,7 @@ const pool = mysql.createPool({
  * @param {Array} values - The values to be escaped in the query.
  * @returns {Promise<Object>} - The result of the query.
  */
-export async function query(q, values = []) {
-  try {
-    const [results] = await pool.query(q, values);
-    return results;
-  } catch (e) {
-    console.error("Database query error:", e);
-    throw new Error(e.message);
-  }
+export async function query(sql, params = []) {
+  const [results, ] = await pool.execute(sql, params);
+  return results;
 }
